@@ -1,0 +1,10 @@
+{
+  "eslint.enable": true,
+  "javascript.format.enable": false,
+  "stylelint.enable": true,
+  "stylelint.validate": ["css", "scss"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true
+  },
+  "cSpell.words": ["SUPABASE"]
+}
