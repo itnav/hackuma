@@ -12,6 +12,7 @@ module.exports = {
     'plugin:react/recommended', // Reactの推奨ルールを適用
     'prettier', // prettierのルールを適用
   ],
+  plugins: [],
   overrides: [],
   parser: '@typescript-eslint/parser', // ESLintのパーサーを指定
   parserOptions: {
@@ -19,6 +20,7 @@ module.exports = {
     sourceType: 'module', // import/exportを利用する場合は'module'を指定
   },
   rules: {
+    'react/prop-types': 'off', // TypeScriptの場合は不要
     'react/jsx-uses-react': 'off', // React17以降は不要
     'react/react-in-jsx-scope': 'off', // React17以降は不要
   },

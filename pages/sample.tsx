@@ -4,23 +4,27 @@ import { supabase } from '@/utils/supabase'
 import { GetStaticProps, NextPage } from 'next'
 
 export const getStaticProps: GetStaticProps = async () => {
-  console.log('getStaticProps/isr invoked')
+  console.log('getStaticProps/ssg invoked')
 
   const { data: posts } = await supabase
     .from('posts')
     .select('*')
     .order('id', { ascending: true })
 
-  return { props: { posts }, revalidate: 5 }
+  return { props: { posts } }
 }
 
 type StaticProps = {
   posts: Post[]
 }
 
-const Sample: NextPage<StaticProps> = ({ posts }) => {
+const Login: NextPage<StaticProps> = ({ posts }) => {
+  const signOut = () => {
+    supabase.auth.signOut()
+  }
+
   return (
-    <Base title="Sample （SSG）">
+    <Base title="Login （SSG）">
       <ul>
         {posts &&
           posts.map((post) => (
@@ -33,4 +37,4 @@ const Sample: NextPage<StaticProps> = ({ posts }) => {
   )
 }
 
-export default Sample
+export default Login
