@@ -23,5 +23,6 @@ module.exports = {
     'react/prop-types': 'off', // TypeScriptの場合は不要
     'react/jsx-uses-react': 'off', // React17以降は不要
     'react/react-in-jsx-scope': 'off', // React17以降は不要
+    'react-hooks/exhaustive-deps': 'off', // React17以降は不要
   },
 }

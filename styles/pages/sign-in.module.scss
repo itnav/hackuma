@@ -1,0 +1,56 @@
+@use '../global' as *;
+
+.page-content {
+  display: flex;
+  padding: 60px;
+  margin-top: 20px;
+  border: 1px solid $color-border-gray;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 40px;
+  margin-top: 20px;
+  border-right: 1px solid $color-border-gray;
+
+  .form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .text-field {
+    width: 600px;
+  }
+
+  .button-submit {
+    width: 300px;
+    margin-top: 40px;
+  }
+}
+
+.register-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 40px;
+
+  .register-title {
+    font-size: 24px;
+  }
+
+  .button-register {
+    width: 300px;
+    margin-top: 40px;
+  }
+}
+
+.text-filed {
+  width: 600px;
+}
