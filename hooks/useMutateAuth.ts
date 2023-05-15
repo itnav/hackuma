@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { supabase } from '../utils/supabase'
 import { useMutation } from 'react-query'
+import useUserStore from '@/stores/user'
 
 // ログイン・登録のカスタムフック
 export const useMutateAuth = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const userStore = useUserStore()
 
   // inputの初期化関数
   const reset = () => {
@@ -28,6 +31,7 @@ export const useMutateAuth = () => {
       },
     }
   )
+
   const registerMutation = useMutation(
     async () => {
       const { error } = await supabase.auth.signUp({ email, password })
@@ -40,6 +44,14 @@ export const useMutateAuth = () => {
       },
     }
   )
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut()
+    if (error) throw new Error(error.message)
+    const { reset: resetUser } = userStore
+    resetUser()
+  }
+
   return {
     email,
     setEmail,
@@ -47,5 +59,6 @@ export const useMutateAuth = () => {
     setPassword,
     loginMutation,
     registerMutation,
+    signOut,
   }
 }

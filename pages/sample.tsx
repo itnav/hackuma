@@ -4,8 +4,6 @@ import { supabase } from '@/utils/supabase'
 import { GetStaticProps, NextPage } from 'next'
 
 export const getStaticProps: GetStaticProps = async () => {
-  console.log('getStaticProps/ssg invoked')
-
   const { data: posts } = await supabase
     .from('posts')
     .select('*')
@@ -19,10 +17,6 @@ type StaticProps = {
 }
 
 const Login: NextPage<StaticProps> = ({ posts }) => {
-  const signOut = () => {
-    supabase.auth.signOut()
-  }
-
   return (
     <Base title="Login （SSG）">
       <ul>

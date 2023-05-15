@@ -1,0 +1,42 @@
+/* =======================================================
+  Break Point
+========================================================= */
+$breakpoint-xs: 375px;
+$breakpoint-mobile: 768px;
+$breakpoint-pc: 1100px;
+
+/* =======================================================
+  Font
+========================================================= */
+// Noto Sans JP（400、500、700）
+@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap';
+
+// Motor（400）
+// Roboto（400、500、700）
+// Futura PT（400、700）
+@import 'https://use.typekit.net/vis7wte.css';
+
+$font-family-ja: noto sans jp, sans-serif;
+$font-family-en: roboto, sans-serif;
+$font-family-num: '';
+$font-family-motor: motor, monospace;
+$font-family-futura: 'futura-pt';
+$font-family-default: $font-family-ja, 'ヒラギノ角ゴシック', 'Hiragino Sans',
+  YuGothic, 'Yu Gothic', 'メイリオ', Meiryo, 'Times New Roman', sans-serif;
+
+/* =======================================================
+  Color
+========================================================= */
+// color-primary
+$color-primary: #3e9f78;
+$color-primary-light: #d0f0dc;
+$color-primary-dark: #1d8455;
+
+// color-secondary
+$color-secondary: #fff454;
+$color-secondary-light: #fffae0;
+
+// other
+$color-border-gray: #ccc;
+$color-white: #fff;
+$color-black: #000;

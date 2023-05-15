@@ -6,5 +6,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.stylelint": true
   },
-  "cSpell.words": ["SUPABASE"]
+  "cSpell.words": ["SUPABASE"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // デフォルトのフォーマッターをPrettierに設定
+  "editor.formatOnSave": true // 保存時に自動でフォーマット
 }
