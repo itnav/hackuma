@@ -63,7 +63,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   // サインイン状態が変更されたら、サインイン状態によってページ遷移を制御する
   supabase.auth.onAuthStateChange((event) => {
-    if (event === 'SIGNED_IN' && pathname === '/sign-in') {
+    if (
+      event === 'SIGNED_IN' &&
+      (pathname === '/sign-in' || pathname === '/sign-up')
+    ) {
       push('/dashboard')
     }
     if (event === 'SIGNED_OUT') {

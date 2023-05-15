@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 import { WebURL } from './support/constants'
 
-test('login', async ({ page }) => {
+test('user login', async ({ page }) => {
   await page.goto(`${WebURL}/sign-in`)
   await page.locator('input[type="text"]').click()
   await page.locator('input[type="text"]').fill('user1@e.com')

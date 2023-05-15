@@ -5,3 +5,8 @@ export type Post = {
   content: string
   user_id: string | undefined
 }
+
+export type SignUpUser = {
+  email: string
+  password: string
+}
