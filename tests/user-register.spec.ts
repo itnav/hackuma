@@ -4,7 +4,6 @@ import { createRNDMSignUpUser } from './fixtures/user'
 
 test('user register', async ({ page }) => {
   const signUpUser = createRNDMSignUpUser()
-  console.log('signUpUser', signUpUser)
 
   await page.goto(`${WebURL}/sign-up`)
   await page.locator('input[type="text"]').click()
