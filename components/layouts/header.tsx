@@ -56,16 +56,11 @@ function Header() {
           <Box className={style['right-box']}>
             {user ? (
               // ログインしている場合
-              <Fragment>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
-                  </IconButton>
-                </Tooltip>
-              </Fragment>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
             ) : (
               // ログインしていない場合
               <>
