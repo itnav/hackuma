@@ -9,9 +9,11 @@ export const useMutatePosts = () => {
 
   const createPostMutation = useMutation(
     async (post: { title: string; content: string; user_id: string }) => {
-      const { error } = await supabase.from('posts').insert(post)
+      const { data, error } = await supabase.from('posts').insert(post).select()
 
       if (error) throw new Error(error.message)
+
+      return data
     },
     {
       onSuccess: () => {
