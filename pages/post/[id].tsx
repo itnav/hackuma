@@ -8,7 +8,8 @@ import EditorBase from '@/components/layouts/editor-base'
 
 const getAllPostIds = async () => {
   const { data: ids } = await supabase.from('posts').select('id')
-  return ids!.map((id) => {
+  if (!ids) throw new Error('Post not found')
+  return ids.map((id) => {
     return {
       params: {
         id: String(id.id),
