@@ -1,21 +1,14 @@
-import useUserStore from '@/stores/user'
 import { Post } from '@/types/types'
 import { supabase } from '@/utils/supabase'
 import { useQuery } from 'react-query'
 
-export const useQueryPostsByUserId = () => {
-  const { data: user } = useUserStore()
-
+export const useQueryPostsByUserId = (userId: string | null) => {
   const { data, isError, error, isLoading, isFetching } = useQuery<
     Post[],
     Error
-  >(['postsByUserId'], async () => {
-    let userId = user?.id
-    if (!userId) {
-      const { data, error } = await supabase.auth.getUser()
-      if (error) throw new Error(error.message)
-      userId = data.user.id
-    }
+  >(['postsByUserId', userId], async () => {
+    if (!userId) return []
+
     const { data, error } = await supabase
       .from('posts')
       .select('*')

@@ -27,13 +27,16 @@ import FilterListIcon from '@mui/icons-material/FilterList'
 import { useQueryClient } from 'react-query'
 import { Post } from '@/types/types'
 import Link from 'next/link'
+import useUserStore from '@/stores/user'
 
 export const ManagePost = () => {
   const router = useRouter()
 
   const queryClient = useQueryClient()
 
-  const { data: posts } = useQueryPostsByUserId()
+  const { data: user } = useUserStore()
+
+  const { data: posts } = useQueryPostsByUserId(user ? user.id : null)
 
   const { deletePostMutation } = useMutatePosts()
 
@@ -48,7 +51,6 @@ export const ManagePost = () => {
    * @param post_id 記事ID
    */
   const handleDeleteButtonClick = async (postId: string) => {
-    console.log('handleDeleteButtonClick')
     handleMenuClose()
     deletePostMutation.mutate(postId, {
       onSuccess: () => {
@@ -89,14 +91,20 @@ export const ManagePost = () => {
     }
   }
 
+  // Menuのアンカー要素
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null)
 
+  // TableCellのMenuの開閉状態
   const [isOpenTableCellSettingMenu, setIsOpenTableCellSettingMenu] =
     useState<boolean>(false)
 
+  // TableHeaderのMenuの開閉状態
   const [isOpenTableHeaderFilterMenu, setIsOpenTableHeaderFilterMenu] =
     useState<boolean>(false)
 
+  /**
+   * 記事の設定ボタンのクリックイベント
+   */
   const handleClickTableCellSetting = (
     event: React.MouseEvent<HTMLButtonElement>,
     post_id: string
@@ -106,6 +114,9 @@ export const ManagePost = () => {
     setIsOpenTableCellSettingMenu(true)
   }
 
+  /**
+   * TableHeaderのフィルターボタンのクリックイベント
+   */
   const handleClickTableHeaderFilter = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -113,6 +124,9 @@ export const ManagePost = () => {
     setIsOpenTableHeaderFilterMenu(true)
   }
 
+  /**
+   * メニューを閉じる
+   */
   const handleMenuClose = () => {
     setMenuAnchorEl(null)
     setIsOpenTableCellSettingMenu(false)
