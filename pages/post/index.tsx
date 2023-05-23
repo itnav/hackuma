@@ -71,6 +71,10 @@ export const ManagePost = () => {
     })
   }
 
+  /**
+   * TableHeadの一括チェックボックスのチェック状態
+   * 全ての記事が選択されている場合はtrue（一つも記事がない場合はfalse）
+   */
   const isAllChecked =
     targetPosts.length === posts?.length && targetPosts.length !== 0
 
