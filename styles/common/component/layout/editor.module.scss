@@ -1,0 +1,22 @@
+@use '../../../global/' as *;
+
+.page-container {
+  display: flex;
+  gap: 20px;
+
+  .sidebar {
+    width: 300px;
+    height: calc(100vh - 220px);
+    border-right: 1px solid $color-border-gray;
+  }
+
+  .editor {
+    width: 100%;
+    overflow-y: scroll;
+
+    .title-text-field {
+      margin-bottom: 16px;
+      font-size: 2rem;
+    }
+  }
+}

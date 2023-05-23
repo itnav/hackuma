@@ -180,8 +180,13 @@ export const ManagePost = () => {
                           onChange={handleHeaderCheckboxClick}
                         />
                       </TableCell>
-                      {tableHeadRow.map((row, index) => (
-                        <TableCell key={index}>{row}</TableCell>
+                      {tableHeadRow.map((row, index, array) => (
+                        <TableCell
+                          key={index}
+                          align={index == array.length - 1 ? 'right' : 'left'}
+                        >
+                          {index == array.length - 1 ? '' : row}
+                        </TableCell>
                       ))}
                     </TableRow>
                   </TableHead>
@@ -223,7 +228,7 @@ export const ManagePost = () => {
                             <TableCell>
                               {format(new Date(row.created_at), 'yyyy/MM/dd')}
                             </TableCell>
-                            <TableCell>
+                            <TableCell align="right">
                               <IconButton
                                 className=""
                                 onClick={(e) =>

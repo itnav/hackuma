@@ -1,5 +1,3 @@
-yarn run v1.22.19
-$ /Users/sasakishiori/Desktop/task/hackuma/node_modules/.bin/supabase gen types typescript --linked
 export type Json =
   | string
   | number
@@ -259,4 +257,3 @@ export interface Database {
     }
   }
 }
-Done in 3.53s.
