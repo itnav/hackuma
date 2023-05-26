@@ -110,62 +110,43 @@ export const EditorBase: FC<EditorBaseProps> = ({
     <div className={style['page-container']}>
       <div className={style.sidebar}>
         {/* TODO:サイドバー */}
-        <div>新規投稿</div>
-        <div className="">サムネイル</div>
-        {thumbnail ? (
-          <div
-            style={{
-              position: 'relative',
-            }}
-          >
+        <div className={style['thumbnail-wrap']}>
+          {thumbnail ? (
+            <>
+              <IconButton
+                className={style['close-icon-btn']}
+                onClick={handleThumbnailDeleteButtonClick}
+              >
+                <CancelIcon />
+              </IconButton>
+              <Image
+                src={thumbnail}
+                alt=""
+                fill
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
+            </>
+          ) : (
             <IconButton
-              style={{
-                position: 'absolute',
-                top: 0,
-                right: 10,
-                zIndex: 1,
-              }}
-              onClick={handleThumbnailDeleteButtonClick}
+              className={style['add-thumbnail-icon-btn']}
+              onClick={handleThumbnailButtonClick}
             >
-              <CancelIcon />
+              <input
+                hidden
+                type="file"
+                onChange={(e) => handleFileChange(e)}
+                ref={fileInputRef}
+                accept=".jpg,.jpeg,.png,"
+              />
+              <AddPhotoAlternateIcon
+                fontSize="large"
+                style={{ color: 'white' }}
+              />
             </IconButton>
-            <Image
-              src={thumbnail}
-              alt=""
-              width={300}
-              height={200}
-              style={{
-                objectFit: 'cover',
-              }}
-            />
-          </div>
-        ) : (
-          <IconButton
-            style={{
-              width: 60,
-              height: 60,
-              paddingBottom: 10,
-              paddingLeft: 10,
-              backgroundColor: '#cccccc',
-              marginTop: 20,
-              display: 'flex',
-              alignItems: 'center',
-            }}
-            onClick={handleThumbnailButtonClick}
-          >
-            <input
-              hidden
-              type="file"
-              onChange={(e) => handleFileChange(e)}
-              ref={fileInputRef}
-              accept=".jpg,.jpeg,.png,"
-            />
-            <AddPhotoAlternateIcon
-              fontSize="large"
-              style={{ color: 'white' }}
-            />
-          </IconButton>
-        )}
+          )}
+        </div>
       </div>
       <div className={style.editor}>
         {/* エディター */}
