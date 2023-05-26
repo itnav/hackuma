@@ -1,18 +1,16 @@
 import { supabase } from '../utils/supabase'
 import { useMutation } from 'react-query'
 import usePostStore from '@/stores/post'
-import { EditPost } from '@/types/types'
+import { CreatePost, EditPost } from '@/types/types'
 import { revalidateList, revalidateSingle } from '@/utils/revalidation'
 
 export const useMutatePosts = () => {
   const reset = usePostStore((state) => state.reset)
 
   const createPostMutation = useMutation(
-    async (post: { title: string; content: string; user_id: string }) => {
+    async (post: CreatePost) => {
       const { data, error } = await supabase.from('posts').insert(post).select()
-
       if (error) throw new Error(error.message)
-
       return data
     },
     {
@@ -32,7 +30,7 @@ export const useMutatePosts = () => {
     async (post: EditPost) => {
       const { data, error } = await supabase
         .from('posts')
-        .update({ title: post.title, content: post.content })
+        .update(post)
         .eq('id', post.id)
         .select()
       if (error) throw new Error(error.message)

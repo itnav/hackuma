@@ -2,11 +2,14 @@ import style from '@/styles/common/component/layout/editor.module.scss'
 import { Button, IconButton, TextField, Toolbar } from '@mui/material'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
-import { FC, useEffect, useState } from 'react'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import 'draft-js/dist/Draft.css'
 import { Post } from '@/types/types'
+import { getImgPath, previewFile } from '@/utils/img'
+import Image, { StaticImageData } from 'next/image'
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
+import CancelIcon from '@mui/icons-material/Cancel'
 
 const Editor = dynamic(
   () => {
@@ -17,22 +20,37 @@ const Editor = dynamic(
 
 type EditorBaseProps = {
   post?: Post
-  saveFunction: (title: string, content: string) => void
+  saveFunction: (title: string, content: string, file: File | null) => void
+  changeFile?: () => void
 }
 
-export const EditorBase: FC<EditorBaseProps> = ({ post, saveFunction }) => {
-  const [title, setTitle] = useState('')
-
+export const EditorBase: FC<EditorBaseProps> = ({
+  post,
+  saveFunction,
+  changeFile,
+}) => {
   const router = useRouter()
 
-  const handleSaveButtonClick = async () => {
-    const contentState = editorState.getCurrentContent()
-    const raw = convertToRaw(contentState)
-    const content = JSON.stringify(raw)
+  const [thumbnail, setThumbnail] = useState<string | StaticImageData>()
 
-    saveFunction(title, content)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  const [file, setFile] = useState<File | null>(null)
+
+  const [title, setTitle] = useState('')
+
+  /**
+   * サムネイルの削除ボタンが押されたときの処理
+   */
+  const handleThumbnailDeleteButtonClick = () => {
+    setThumbnail(undefined)
+    setFile(null)
+    if (changeFile) changeFile()
   }
 
+  /**
+   * エディターの状態
+   */
   const [editorState, setEditorState] = useState(() => {
     if (post && post.content) {
       const contentState = convertFromRaw(JSON.parse(post.content))
@@ -41,20 +59,113 @@ export const EditorBase: FC<EditorBaseProps> = ({ post, saveFunction }) => {
     return EditorState.createEmpty()
   })
 
+  /**
+   * エディターの内容が変更されたときの処理
+   * @param editorState
+   */
   const handleChangeEditor = (editorState: EditorState) => {
     setEditorState(editorState)
+  }
+
+  /**
+   * サムネイル画像のファイル選択ボタンが押されたときの処理
+   */
+  const handleThumbnailButtonClick = () => {
+    if (!fileInputRef.current) return
+    fileInputRef.current.click()
+  }
+
+  /**
+   * 保存ボタンが押されたときの処理
+   */
+  const handleSaveButtonClick = async () => {
+    const contentState = editorState.getCurrentContent()
+    const raw = convertToRaw(contentState)
+    const content = JSON.stringify(raw)
+
+    saveFunction(title, content, file)
+  }
+
+  /**
+   * inputでファイルが変更されたときの処理
+   * @param event
+   * @returns
+   */
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target || !event.target.files) return
+    setFile(event.target.files[0])
+    previewFile(event, setThumbnail)
+    if (changeFile) changeFile()
   }
 
   useEffect(() => {
     if (!post || !post.title) return
     setTitle(post.title)
-  }, [])
+
+    if (!post.thumbnail_path) return
+    setThumbnail(getImgPath(post.thumbnail_path))
+  }, [post])
 
   return (
     <div className={style['page-container']}>
       <div className={style.sidebar}>
         {/* TODO:サイドバー */}
         <div>新規投稿</div>
+        <div className="">サムネイル</div>
+        {thumbnail ? (
+          <div
+            style={{
+              position: 'relative',
+            }}
+          >
+            <IconButton
+              style={{
+                position: 'absolute',
+                top: 0,
+                right: 10,
+                zIndex: 1,
+              }}
+              onClick={handleThumbnailDeleteButtonClick}
+            >
+              <CancelIcon />
+            </IconButton>
+            <Image
+              src={thumbnail}
+              alt=""
+              width={300}
+              height={200}
+              style={{
+                objectFit: 'cover',
+              }}
+            />
+          </div>
+        ) : (
+          <IconButton
+            style={{
+              width: 60,
+              height: 60,
+              paddingBottom: 10,
+              paddingLeft: 10,
+              backgroundColor: '#cccccc',
+              marginTop: 20,
+              display: 'flex',
+              alignItems: 'center',
+            }}
+            onClick={handleThumbnailButtonClick}
+          >
+            <input
+              hidden
+              type="file"
+              onChange={(e) => handleFileChange(e)}
+              ref={fileInputRef}
+              accept=".jpg,.jpeg,.png,"
+            />
+            <AddPhotoAlternateIcon
+              fontSize="large"
+              style={{ color: 'white' }}
+            />
+          </IconButton>
+        )}
       </div>
       <div className={style.editor}>
         {/* エディター */}
