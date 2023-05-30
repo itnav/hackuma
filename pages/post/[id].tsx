@@ -73,8 +73,7 @@ export const DetailPost: NextPage<StaticProps> = ({ post }) => {
     content: string,
     file?: File | null
   ) => {
-    if (!postUuid) return
-    if (!user) return
+    if (!postUuid || !user) return
     // 初期値は元画像のパス
     let thumbnailPath: string | null = post.thumbnail_path
 
