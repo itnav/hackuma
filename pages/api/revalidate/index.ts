@@ -9,7 +9,7 @@ export default async function handler(
   console.log('Revalidating posts page...')
   let revalidate = false
   try {
-    await res.revalidate('/posts')
+    await res.revalidate('/')
     revalidate = true
   } catch (error) {
     console.error(error)
