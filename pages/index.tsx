@@ -14,7 +14,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
   const { start, end } = calculatePaginationRange(page, 9)
 
   const { data: posts, count } = await supabase
-    .from('posts') // ↓ カウントも合わせて取得したい
+    .from('posts')
     .select('*, users(handle_name,icon_path)', { count: 'estimated' })
     .order('created_at', { ascending: true })
     .range(start, end)
