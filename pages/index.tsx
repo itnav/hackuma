@@ -49,7 +49,7 @@ const Sample: NextPage<StaticProps> = ({ posts, count }) => {
         {posts ? (
           posts.map((post) => (
             <li key={post.id}>
-              {/* <CardOfPost post={post} href={`${post.user_id}/${post.id}`} /> */}
+              <CardOfPost post={post} href={`${post.user_id}/${post.id}`} />
             </li>
           ))
         ) : (
