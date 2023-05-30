@@ -14,9 +14,6 @@ export const useMutateUsers = () => {
       return data
     },
     {
-      onSuccess: () => {
-        // console.log('success')
-      },
       onError: (err: TypeError) => {
         alert(err.message)
       },
@@ -40,10 +37,6 @@ export const useMutateUsers = () => {
       return data
     },
     {
-      onSuccess: (res) => {
-        revalidateList()
-        revalidateSingle(res[0].id)
-      },
       onError: (err: TypeError) => {
         alert(err.message)
       },
@@ -56,9 +49,6 @@ export const useMutateUsers = () => {
       if (error) throw new Error(error.message)
     },
     {
-      onSuccess: () => {
-        console.log('success')
-      },
       onError: (err: TypeError) => {
         alert(err.message)
       },

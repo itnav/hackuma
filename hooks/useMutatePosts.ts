@@ -15,7 +15,6 @@ export const useMutatePosts = () => {
     },
     {
       onSuccess: () => {
-        console.log('success')
         revalidateList()
         reset()
       },
@@ -56,7 +55,7 @@ export const useMutatePosts = () => {
     },
     {
       onSuccess: () => {
-        // revalidateList()
+        revalidateList()
         reset()
       },
       onError: (err: TypeError) => {

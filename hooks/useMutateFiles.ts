@@ -21,10 +21,6 @@ export const useMutateFiles = () => {
       return data
     },
     {
-      onSuccess: () => {
-        console.log('success')
-        // revalidateList()
-      },
       onError: (err: TypeError) => {
         alert(err.message)
       },
@@ -44,9 +40,6 @@ export const useMutateFiles = () => {
       if (error) throw new Error(error.message)
     },
     {
-      onSuccess: () => {
-        // revalidateList()
-      },
       onError: (err: TypeError) => {
         alert(err.message)
       },
