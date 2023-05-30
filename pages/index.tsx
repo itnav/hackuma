@@ -50,12 +50,15 @@ const Sample: NextPage<StaticProps> = ({ posts, count }) => {
   return (
     <Base title="トップページ">
       <ul className={style.cards}>
-        {posts &&
+        {posts ? (
           posts.map((post) => (
             <li key={post.id}>
               <CardOfPost post={post} href={`${post.user_id}/${post.id}`} />
             </li>
-          ))}
+          ))
+        ) : (
+          <div style={{ margin: '0 auto' }}>投稿がありません</div>
+        )}
       </ul>
       <Pagination
         page={currentPage} //現在のページ番号
