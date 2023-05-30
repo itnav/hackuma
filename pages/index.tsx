@@ -9,17 +9,13 @@ import { useRouter } from 'next/router'
 import { calculatePaginationRange } from '@/utils/pagination'
 
 export const getServerSideProps = async (ctx: NextPageContext) => {
-  const { count } = await supabase
-    .from('posts')
-    .select('*', { count: 'exact', head: true })
-
   const page = ctx.query.page ? Number(ctx.query.page) : 1
 
   const { start, end } = calculatePaginationRange(page, 9)
 
-  const { data: posts } = await supabase
-    .from('posts')
-    .select('*,users(handle_name,icon_path)')
+  const { data: posts, count } = await supabase
+    .from('posts') // ↓ カウントも合わせて取得したい
+    .select('*, users(handle_name,icon_path)', { count: 'estimated' })
     .order('created_at', { ascending: true })
     .range(start, end)
 
@@ -53,7 +49,7 @@ const Sample: NextPage<StaticProps> = ({ posts, count }) => {
         {posts ? (
           posts.map((post) => (
             <li key={post.id}>
-              <CardOfPost post={post} href={`${post.user_id}/${post.id}`} />
+              {/* <CardOfPost post={post} href={`${post.user_id}/${post.id}`} /> */}
             </li>
           ))
         ) : (
