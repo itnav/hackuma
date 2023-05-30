@@ -12,8 +12,6 @@ interface Props {
   href?: string
 }
 export const CardOfPost: FC<Props> = ({ post, href }) => {
-  console.log(post)
-
   return (
     <a className={style.card} href={href}>
       <Image
