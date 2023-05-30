@@ -2,6 +2,7 @@ import Base from '@/components/layouts/base'
 import EditorBase from '@/components/layouts/editor-base'
 import { useMutateFiles } from '@/hooks/useMutateFiles'
 import { useMutatePosts } from '@/hooks/useMutatePosts'
+import usePublicUserStore from '@/stores/public_user'
 import useSnackbarStore from '@/stores/snackbar'
 import useUserStore from '@/stores/user'
 import { useRouter } from 'next/router'
@@ -9,6 +10,8 @@ import { useEffect } from 'react'
 
 export const NewPost = () => {
   const router = useRouter()
+
+  const { data: public_user } = usePublicUserStore()
 
   const { data: user } = useUserStore()
 
@@ -42,12 +45,14 @@ export const NewPost = () => {
       )
     }
 
+    if (!public_user) return
     // 投稿を作成
     createPostMutation.mutateAsync(
       {
         title: title,
         content: content,
         user_id: user.id,
+        public_user_id: public_user.id,
         thumbnail_path: thumbnailPath,
       },
       {
