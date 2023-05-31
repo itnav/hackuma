@@ -53,7 +53,7 @@ export const NewPost = () => {
     }
 
     // 投稿を作成
-    createPostMutation.mutateAsync(
+    createPostMutation.mutate(
       {
         title: title,
         content: content,
