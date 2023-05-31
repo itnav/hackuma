@@ -1,13 +1,10 @@
 import { supabase } from '../utils/supabase'
 import { useMutation } from 'react-query'
-import usePostStore from '@/stores/post'
 import { CreatePost, EditPost } from '@/types/types'
 import { revalidateList, revalidateSingle } from '@/utils/revalidation'
 
-export const useMutatePosts = () => {
-  const reset = usePostStore((state) => state.reset)
-
-  const createPostMutation = useMutation(
+export const useCreatePostMutation = () => {
+  return useMutation(
     async (post: CreatePost) => {
       const { data, error } = await supabase.from('posts').insert(post).select()
       if (error) throw new Error(error.message)
@@ -16,16 +13,16 @@ export const useMutatePosts = () => {
     {
       onSuccess: () => {
         revalidateList()
-        reset()
       },
       onError: (err: TypeError) => {
         alert(err.message)
-        reset()
       },
     }
   )
+}
 
-  const updatePostMutation = useMutation(
+export const useUpdatePostMutation = () => {
+  return useMutation(
     async (post: EditPost) => {
       const { data, error } = await supabase
         .from('posts')
@@ -39,16 +36,16 @@ export const useMutatePosts = () => {
       onSuccess: (res) => {
         revalidateList()
         revalidateSingle(res[0].id)
-        reset()
       },
       onError: (err: TypeError) => {
         alert(err.message)
-        reset()
       },
     }
   )
+}
 
-  const deletePostMutation = useMutation(
+export const useDeletePostMutation = () => {
+  useMutation(
     async (id: string) => {
       const { error } = await supabase.from('posts').delete().eq('id', id)
       if (error) throw new Error(error.message)
@@ -56,18 +53,10 @@ export const useMutatePosts = () => {
     {
       onSuccess: () => {
         revalidateList()
-        reset()
       },
       onError: (err: TypeError) => {
         alert(err.message)
-        reset()
       },
     }
   )
-
-  return {
-    createPostMutation,
-    updatePostMutation,
-    deletePostMutation,
-  }
 }

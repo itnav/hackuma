@@ -1,5 +1,5 @@
 import Base from '@/components/layouts/base'
-import { useMutatePosts } from '@/hooks/useMutatePosts'
+import { useUpdatePostMutation } from '@/hooks/useMutatePosts'
 import { useRouter } from 'next/router'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { Post } from '@/types/types'
@@ -59,7 +59,7 @@ export const DetailPost: NextPage<StaticProps> = ({ post }) => {
 
   const { id: postUuid } = router.query
 
-  const { updatePostMutation } = useMutatePosts()
+  const updatePostMutation = useUpdatePostMutation()
 
   const [isChangeFile, setIsChangeFile] = useState<boolean>(false)
 

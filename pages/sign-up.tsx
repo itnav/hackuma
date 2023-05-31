@@ -6,7 +6,7 @@ import { FormEvent } from 'react'
 import style from '@/styles/pages/sign-up.module.scss'
 import styleCommon from '@/styles/common/foundation/common.module.scss'
 import { useRouter } from 'next/router'
-import { useMutateUsers } from '@/hooks/useMutateUsers'
+import { useCreateUserMutation } from '@/hooks/useMutateUsers'
 
 const SignUp: NextPage = () => {
   const { push } = useRouter()
@@ -14,7 +14,7 @@ const SignUp: NextPage = () => {
   const { email, setEmail, password, setPassword, registerMutation } =
     useMutateAuth()
 
-  const { createUserMutation } = useMutateUsers()
+  const createUserMutation = useCreateUserMutation()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault() // ページ遷移を防ぐ

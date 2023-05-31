@@ -1,9 +1,8 @@
 import { supabase } from '../utils/supabase'
 import { useMutation } from 'react-query'
-import { revalidateList, revalidateSingle } from '@/utils/revalidation'
 
-export const useMutateUsers = () => {
-  const createUserMutation = useMutation(
+export const useCreateUserMutation = () => {
+  return useMutation(
     async (profile: { handle_name: string; user_id: string }) => {
       const { data, error } = await supabase
         .from('users')
@@ -19,8 +18,10 @@ export const useMutateUsers = () => {
       },
     }
   )
+}
 
-  const updateUserMutation = useMutation(
+export const useUpdateUserMutation = () => {
+  return useMutation(
     async ({
       editProfile,
       id,
@@ -42,8 +43,10 @@ export const useMutateUsers = () => {
       },
     }
   )
+}
 
-  const deleteUserMutation = useMutation(
+export const useDeleteUserMutation = () => {
+  return useMutation(
     async (id: string) => {
       const { error } = await supabase.from('posts').delete().eq('id', id)
       if (error) throw new Error(error.message)
@@ -54,10 +57,4 @@ export const useMutateUsers = () => {
       },
     }
   )
-
-  return {
-    createUserMutation,
-    updateUserMutation,
-    deleteUserMutation,
-  }
 }
