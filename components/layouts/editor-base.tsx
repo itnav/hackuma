@@ -45,7 +45,7 @@ export const EditorBase: FC<EditorBaseProps> = ({
   const handleThumbnailDeleteButtonClick = () => {
     setThumbnail(undefined)
     setFile(null)
-    if (changeFile) changeFile()
+    changeFile?.()
   }
 
   /**
@@ -95,7 +95,7 @@ export const EditorBase: FC<EditorBaseProps> = ({
     if (!event.target || !event.target.files) return
     setFile(event.target.files[0])
     previewFile(event, setThumbnail)
-    if (changeFile) changeFile()
+    changeFile?.()
   }
 
   useEffect(() => {
