@@ -6,7 +6,6 @@ import usePublicUserStore from '@/stores/public_user'
 import useSnackbarStore from '@/stores/snackbar'
 import useUserStore from '@/stores/user'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 
 export const NewPost = () => {
   const router = useRouter()
