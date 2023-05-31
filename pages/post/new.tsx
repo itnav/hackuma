@@ -32,7 +32,15 @@ export const NewPost = () => {
     content: string,
     file?: File | null
   ) => {
-    if (!user) return
+    if (!user || !public_user) return
+
+    updateSnackbar({
+      isOpen: true,
+      message: '投稿を保存中です',
+      severity: undefined,
+      isLoading: true,
+    })
+
     let thumbnailPath: string | null = null
     if (file) {
       await createFileMutation.mutateAsync(
@@ -45,7 +53,6 @@ export const NewPost = () => {
       )
     }
 
-    if (!public_user) return
     // 投稿を作成
     createPostMutation.mutateAsync(
       {
@@ -75,17 +82,6 @@ export const NewPost = () => {
       }
     )
   }
-
-  useEffect(() => {
-    if (createPostMutation.isLoading) {
-      updateSnackbar({
-        isOpen: true,
-        message: '投稿を保存中です',
-        severity: undefined,
-        isLoading: true,
-      })
-    }
-  }, [createPostMutation.isLoading])
 
   return (
     <Base title="新規投稿">

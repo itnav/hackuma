@@ -74,6 +74,12 @@ export const DetailPost: NextPage<StaticProps> = ({ post }) => {
     file?: File | null
   ) => {
     if (!postUuid || !user) return
+    updateSnackbar({
+      isOpen: true,
+      message: '投稿を更新中です',
+      severity: undefined,
+      isLoading: true,
+    })
     // 初期値は元画像のパス
     let thumbnailPath: string | null = post.thumbnail_path
 
@@ -121,28 +127,7 @@ export const DetailPost: NextPage<StaticProps> = ({ post }) => {
         },
       }
     )
-
-    // 投稿を更新中のスナックバーを表示
-    if (updatePostMutation.isLoading) {
-      updateSnackbar({
-        isOpen: true,
-        message: '投稿を更新中です',
-        severity: undefined,
-        isLoading: true,
-      })
-    }
   }
-
-  useEffect(() => {
-    if (updatePostMutation.isLoading) {
-      updateSnackbar({
-        isOpen: true,
-        message: '投稿を更新中です',
-        severity: undefined,
-        isLoading: true,
-      })
-    }
-  }, [updatePostMutation.isLoading])
 
   return (
     <Base title="新規投稿">
