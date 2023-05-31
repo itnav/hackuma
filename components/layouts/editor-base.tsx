@@ -136,7 +136,7 @@ export const EditorBase: FC<EditorBaseProps> = ({
               <input
                 hidden
                 type="file"
-                onChange={(e) => handleFileChange(e)}
+                onChange={handleFileChange}
                 ref={fileInputRef}
                 accept=".jpg,.jpeg,.png,"
               />

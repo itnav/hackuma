@@ -60,7 +60,7 @@ const Sample: NextPage<StaticProps> = ({ posts, count }) => {
         page={currentPage} //現在のページ番号
         count={Math.ceil(count / 9)} // 総ページ数を計算
         color="primary" //ページネーションの色
-        onChange={(e, page) => handlePageChange(e, page)}
+        onChange={handlePageChange}
         sx={{ display: 'flex', justifyContent: 'center', margin: '60px 0' }}
       />
     </Base>
