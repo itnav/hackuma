@@ -1,6 +1,6 @@
 import Base from '@/components/layouts/base'
 import EditorBase from '@/components/layouts/editor-base'
-import { useMutateFiles } from '@/hooks/useMutateFiles'
+import { useCreateFileMutation } from '@/hooks/useMutateFiles'
 import { useMutatePosts } from '@/hooks/useMutatePosts'
 import usePublicUserStore from '@/stores/public_user'
 import useSnackbarStore from '@/stores/snackbar'
@@ -16,7 +16,7 @@ export const NewPost = () => {
 
   const { createPostMutation } = useMutatePosts()
 
-  const { createFileMutation } = useMutateFiles()
+  const createFileMutation = useCreateFileMutation()
 
   const { update: updateSnackbar } = useSnackbarStore()
 

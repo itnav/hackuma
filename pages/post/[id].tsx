@@ -5,9 +5,12 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { Post } from '@/types/types'
 import { supabase } from '@/utils/supabase'
 import EditorBase from '@/components/layouts/editor-base'
-import { useMutateFiles } from '@/hooks/useMutateFiles'
+import {
+  useCreateFileMutation,
+  useDeleteFileMutation,
+} from '@/hooks/useMutateFiles'
 import useUserStore from '@/stores/user'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import AppSnackbar from '@/components/elements/Snackbar'
 import useSnackbarStore from '@/stores/snackbar'
 
@@ -54,13 +57,15 @@ export const DetailPost: NextPage<StaticProps> = ({ post }) => {
 
   const { update: updateSnackbar } = useSnackbarStore()
 
-  const { createFileMutation, deleteFileMutation } = useMutateFiles()
-
   const { id: postUuid } = router.query
 
   const { updatePostMutation } = useMutatePosts()
 
   const [isChangeFile, setIsChangeFile] = useState<boolean>(false)
+
+  const createFileMutation = useCreateFileMutation()
+
+  const deleteFileMutation = useDeleteFileMutation()
 
   /**
    * 保存ボタンをクリックしたときの処理
