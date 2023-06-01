@@ -45,7 +45,7 @@ export const useUpdatePostMutation = () => {
 }
 
 export const useDeletePostMutation = () => {
-  useMutation(
+  return useMutation(
     async (id: string) => {
       const { error } = await supabase.from('posts').delete().eq('id', id)
       if (error) throw new Error(error.message)
