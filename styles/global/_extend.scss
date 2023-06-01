@@ -1,0 +1,33 @@
+@use './variables' as *;
+
+/* =======================================================
+ 行数制限（3点リーダーを表示）
+========================================================= */
+// 1行
+%ellipsis-base {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  white-space: nowrap;
+}
+
+%ellipsis-one {
+  @extend %ellipsis-base;
+
+  // -webkit-line-clamp: 1; /* 制限したい行数 */
+}
+
+// 2行
+%ellipsis-two {
+  @extend %ellipsis-base;
+
+  -webkit-line-clamp: 2; /* 制限したい行数 */
+}
+
+// 3行
+%ellipsis-three {
+  @extend %ellipsis-base;
+
+  -webkit-line-clamp: 3; /* 制限したい行数 */
+}

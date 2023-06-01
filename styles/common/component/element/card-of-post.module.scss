@@ -1,0 +1,47 @@
+@use '../../../global/' as *;
+
+.card {
+  width: 300px;
+
+  &:hover {
+    color: $color-primary;
+  }
+
+  .thumbnail {
+    object-fit: cover;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6rem;
+  }
+
+  .title {
+    margin-top: 10px;
+    font-size: 1.2rem;
+  }
+
+  .writer {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 10px;
+
+    .writer-icon {
+      flex-shrink: 1;
+      border: 1px solid $color-border-gray;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .writer-name {
+      width: calc(300px - 60px);
+      overflow: hidden;
+      font-size: 0.8rem;
+      color: $color-text-light;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

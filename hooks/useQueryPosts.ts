@@ -2,11 +2,13 @@ import { Post } from '@/types/types'
 import { supabase } from '@/utils/supabase'
 import { useQuery } from 'react-query'
 
+/**
+ * ユーザーIDを指定して投稿を取得するクエリ
+ * @param userId ユーザーID
+ * @returns
+ */
 export const useQueryPostsByUserId = (userId: string | null) => {
-  const { data, isError, error, isLoading, isFetching } = useQuery<
-    Post[],
-    Error
-  >(['postsByUserId', userId], async () => {
+  return useQuery<Post[], Error>(['postsByUserId', userId], async () => {
     if (!userId) return []
 
     const { data, error } = await supabase
@@ -19,6 +21,4 @@ export const useQueryPostsByUserId = (userId: string | null) => {
 
     return data
   })
-
-  return { data, isError, error, isLoading, isFetching }
 }

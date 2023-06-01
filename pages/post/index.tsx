@@ -175,7 +175,7 @@ export const ManagePost = () => {
                   title="Filter list"
                   sx={{ marginLeft: 'auto', marginRight: 0 }}
                 >
-                  <IconButton onClick={(e) => handleClickTableHeaderFilter(e)}>
+                  <IconButton onClick={handleClickTableHeaderFilter}>
                     <FilterListIcon />
                   </IconButton>
                 </Tooltip>

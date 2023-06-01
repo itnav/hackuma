@@ -62,6 +62,8 @@ export interface Database {
           content: string | null
           created_at: string
           id: string
+          public_user_id: string | null
+          thumbnail_path: string | null
           title: string | null
           user_id: string | null
         }
@@ -69,6 +71,8 @@ export interface Database {
           content?: string | null
           created_at?: string
           id?: string
+          public_user_id?: string | null
+          thumbnail_path?: string | null
           title?: string | null
           user_id?: string | null
         }
@@ -76,8 +80,33 @@ export interface Database {
           content?: string | null
           created_at?: string
           id?: string
+          public_user_id?: string | null
+          thumbnail_path?: string | null
           title?: string | null
           user_id?: string | null
+        }
+      }
+      users: {
+        Row: {
+          created_at: string | null
+          handle_name: string | null
+          icon_path: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          handle_name?: string | null
+          icon_path?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          handle_name?: string | null
+          icon_path?: string | null
+          id?: string
+          user_id?: string
         }
       }
     }

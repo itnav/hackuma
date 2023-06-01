@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import useUserStore from '@/stores/user'
+import usePublicUserStore from '@/stores/public_user'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -50,18 +51,27 @@ export default function App({ Component, pageProps }: AppProps) {
     updateHasFetched: updateHasFetchedUser,
   } = useUserStore()
 
+  const { reset: resetPublicUser, update: updatePublicUser } =
+    usePublicUserStore()
+
   // サインイン状態をチェックし、サインイン状態を更新する
   const validateSession = async () => {
     updateIsFetchingUser(true)
 
     const user = await supabase.auth.getUser()
-
+    const { data: publicUser } = await supabase
+      .from('users')
+      .select('*')
+      .eq('user_id', user.data.user?.id)
+      .single()
     updateHasFetchedUser(true)
     updateIsFetchingUser(false)
     if (user.data.user) {
       updateUser(user.data.user)
+      if (publicUser) updatePublicUser(publicUser)
     } else {
       resetUser()
+      resetPublicUser()
     }
   }
 
