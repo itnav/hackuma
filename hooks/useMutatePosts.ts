@@ -47,8 +47,13 @@ export const useUpdatePostMutation = () => {
 export const useDeletePostMutation = () => {
   return useMutation(
     async (id: string) => {
-      const { error } = await supabase.from('posts').delete().eq('id', id)
+      const { data, error } = await supabase
+        .from('posts')
+        .delete()
+        .eq('id', id)
+        .select()
       if (error) throw new Error(error.message)
+      return data
     },
     {
       onSuccess: () => {
