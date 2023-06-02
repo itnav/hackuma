@@ -4,13 +4,13 @@ import Header from '@/components/layouts/header'
 import { Container } from '@mui/material'
 import style from '../../styles/common/component/layout/base.module.scss'
 
-type Title = {
+type Props = {
   title: string
   auth?: string
   children: ReactNode
 }
 
-export const Base: FC<Title> = ({ children, title }) => {
+export const Base: FC<Props> = ({ children, title }) => {
   return (
     <div>
       <Head>

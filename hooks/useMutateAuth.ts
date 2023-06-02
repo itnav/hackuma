@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { supabase } from '../utils/supabase'
+import { supabase, supabaseServer } from '../utils/supabase'
 import { useMutation } from 'react-query'
 import useUserStore from '@/stores/user'
 
@@ -62,4 +62,18 @@ export const useMutateAuth = () => {
     registerMutation,
     signOut,
   }
+}
+
+export const useDeleteUserMutation = () => {
+  return useMutation(
+    async (id: string) => {
+      const { data, error } = await supabaseServer.auth.admin.deleteUser(id)
+      if (error) throw new Error(error.message)
+    },
+    {
+      onError: (err: TypeError) => {
+        alert(err.message)
+      },
+    }
+  )
 }

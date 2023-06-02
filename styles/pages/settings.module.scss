@@ -1,0 +1,30 @@
+@use '../global' as *;
+
+.page-content {
+  margin-top: 20px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+  margin-top: 20px;
+  border-bottom: 1px solid $color-border-gray;
+
+  .form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .text-field {
+    width: 600px;
+  }
+
+  .button-submit {
+    width: 300px;
+    margin-top: 40px;
+  }
+}

@@ -49,7 +49,7 @@ export type SignUpUser = {
 
 export type PublicUser = {
   created_at: string | null
-  handle_name: string | null
+  handle_name: string
   icon_path: string | null
   id: string
   user_id: string

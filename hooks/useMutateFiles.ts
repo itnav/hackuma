@@ -35,11 +35,12 @@ export const useDeleteFileMutation = () => {
    */
   return useMutation(
     async (thumbnailPath: string[]) => {
-      const { error } = await supabase.storage
+      const { data, error } = await supabase.storage
         .from('files')
         .remove(thumbnailPath)
 
       if (error) throw new Error(error.message)
+      return data
     },
     {
       onError: (err: TypeError) => {
