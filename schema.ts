@@ -89,21 +89,21 @@ export interface Database {
       users: {
         Row: {
           created_at: string | null
-          handle_name: string | null
+          handle_name: string
           icon_path: string | null
           id: string
           user_id: string
         }
         Insert: {
           created_at?: string | null
-          handle_name?: string | null
+          handle_name?: string
           icon_path?: string | null
           id?: string
           user_id: string
         }
         Update: {
           created_at?: string | null
-          handle_name?: string | null
+          handle_name?: string
           icon_path?: string | null
           id?: string
           user_id?: string

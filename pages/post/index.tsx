@@ -19,7 +19,7 @@ import {
   Paper,
   Tooltip,
 } from '@mui/material'
-import { useMutatePosts } from '@/hooks/useMutatePosts'
+import { useDeletePostMutation } from '@/hooks/useMutatePosts'
 import { useRouter } from 'next/router'
 import { format } from 'date-fns'
 import { useQueryPostsByUserId } from '@/hooks/useQueryPosts'
@@ -38,7 +38,7 @@ export const ManagePost = () => {
 
   const { data: posts } = useQueryPostsByUserId(user ? user.id : null)
 
-  const { deletePostMutation } = useMutatePosts()
+  const deletePostMutation = useDeletePostMutation()
 
   const [targetPost, setTargetPost] = useState<string>('')
 

@@ -26,7 +26,7 @@ export const useUpdateUserMutation = () => {
       editProfile,
       id,
     }: {
-      editProfile: { handle_name?: string }
+      editProfile: { handle_name?: string; icon_path: string | null }
       id: string
     }) => {
       const { data, error } = await supabase
@@ -36,20 +36,6 @@ export const useUpdateUserMutation = () => {
         .select()
       if (error) throw new Error(error.message)
       return data
-    },
-    {
-      onError: (err: TypeError) => {
-        alert(err.message)
-      },
-    }
-  )
-}
-
-export const useDeleteUserMutation = () => {
-  return useMutation(
-    async (id: string) => {
-      const { error } = await supabase.from('posts').delete().eq('id', id)
-      if (error) throw new Error(error.message)
     },
     {
       onError: (err: TypeError) => {

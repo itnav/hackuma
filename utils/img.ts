@@ -3,13 +3,15 @@ import blankImg from '../imgs/blank.png'
 /**
  * 引数があれば画像のパスを返し、なければブランク画像を返す
  * @param {string | null} path - 画像のパス（supabaseの files/ 以下）
- * @returns {StaticImageData} - 画像のパス
+ * @param {boolean} returnBlankImg - 画像がない場合にブランク画像を返すかどうか
+ * @returns {StaticImageData | string } - 画像のパスまたはブランク画像データ
  */
-export const getImgPath = (path: string | null) => {
+export const getImgPath = (path: string | null, returnBlankImg = true) => {
   const baseURL =
     'https://tpkboyehtconbkzyhcpp.supabase.co/storage/v1/object/public/files'
   if (path) return `${baseURL}/${path}`
-  return blankImg
+  if (returnBlankImg) return blankImg
+  return ''
 }
 
 /**
