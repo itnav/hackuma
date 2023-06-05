@@ -1,4 +1,4 @@
-import { Base } from '@/components/layouts/base'
+import { Base } from '@/components/layouts/Base'
 import { useMutateAuth } from '@/hooks/useMutateAuth'
 import { Box, Button, TextField } from '@mui/material'
 import { NextPage } from 'next'

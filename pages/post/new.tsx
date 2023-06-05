@@ -1,5 +1,5 @@
-import Base from '@/components/layouts/base'
-import EditorBase from '@/components/layouts/editor-base'
+import Base from '@/components/layouts/Base'
+import EditorBase from '@/components/layouts/Editor-base'
 import { useCreateFileMutation } from '@/hooks/useMutateFiles'
 import { useCreatePostMutation } from '@/hooks/useMutatePosts'
 import usePublicUserStore from '@/stores/public_user'

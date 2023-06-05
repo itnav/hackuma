@@ -1,8 +1,8 @@
-import Base from '@/components/layouts/base'
+import Base from '@/components/layouts/Base'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { PostWithUsers } from '@/types/types'
 import { supabase } from '@/utils/supabase'
-import CardOfPost from '@/components/elements/card/post'
+import CardOfPost from '@/components/elements/card/Post'
 import style from '@/styles/pages/user.module.scss'
 
 const getAllUserIds = async () => {

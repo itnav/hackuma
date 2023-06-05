@@ -1,4 +1,4 @@
-import { Base } from '@/components/layouts/base'
+import { Base } from '@/components/layouts/Base'
 import { useAuthWatcher } from '@/hooks/useAuthWatcher'
 import { Post } from '@/types/types'
 import { supabase } from '@/utils/supabase'

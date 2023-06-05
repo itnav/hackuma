@@ -1,9 +1,9 @@
-import Base from '@/components/layouts/base'
+import Base from '@/components/layouts/Base'
 import { NextPage } from 'next'
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import style from '@/styles/pages/settings.module.scss'
 import { Avatar, Box, Button, IconButton, TextField } from '@mui/material'
-import AppDialog from '@/components/elements/dialog'
+import AppDialog from '@/components/elements/Dialog'
 import PetsIcon from '@mui/icons-material/Pets'
 import { getImgPath, previewFile } from '@/utils/img'
 import Image from 'next/image'
@@ -16,7 +16,7 @@ import {
 } from '@/hooks/useMutateFiles'
 import AppSnackbar from '@/components/elements/Snackbar'
 import CancelIcon from '@mui/icons-material/Cancel'
-import AccountDeleteButton from '@/components/elements/button/accountDeleteButton'
+import AccountDeleteButton from '@/components/elements/button/AccountDeleteButton'
 
 const Settings: NextPage = () => {
   const createFileMutation = useCreateFileMutation()

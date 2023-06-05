@@ -1,4 +1,4 @@
-import Base from '@/components/layouts/base'
+import Base from '@/components/layouts/Base'
 import { useState } from 'react'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import styleCommon from '@/styles/common/foundation/common.module.scss'

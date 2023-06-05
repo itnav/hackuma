@@ -1,10 +1,10 @@
-import Base from '@/components/layouts/base'
+import Base from '@/components/layouts/Base'
 import { useUpdatePostMutation } from '@/hooks/useMutatePosts'
 import { useRouter } from 'next/router'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { Post } from '@/types/types'
 import { supabase } from '@/utils/supabase'
-import EditorBase from '@/components/layouts/editor-base'
+import EditorBase from '@/components/layouts/Editor-base'
 import {
   useCreateFileMutation,
   useDeleteFileMutation,
