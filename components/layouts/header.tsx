@@ -12,10 +12,11 @@ import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import style from '../../styles/common/component/layout/header.module.scss'
 import { useRouter } from 'next/router'
-import { Fragment, useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import useUserStore from '@/stores/user'
 import { useMutateAuth } from '@/hooks/useMutateAuth'
+import usePublicUserStore from '@/stores/public_user'
+import { getImgPath } from '@/utils/img'
 
 const pages = [
   { name: 'Event', path: '/event' },
@@ -41,9 +42,17 @@ function Header() {
 
   const router = useRouter()
 
-  const { data: user } = useUserStore()
+  const { data: publicUser } = usePublicUserStore()
 
   const { signOut } = useMutateAuth()
+
+  const [iconPath, setIconPath] = useState<string>()
+
+  useEffect(() => {
+    if (!publicUser?.icon_path) return
+    const path = getImgPath(publicUser?.icon_path, false)
+    if (typeof path === 'string') setIconPath(path)
+  }, [])
 
   return (
     <AppBar position="static">
@@ -54,11 +63,11 @@ function Header() {
             LOGO
           </Link>
           <Box className={style['right-box']}>
-            {user ? (
+            {publicUser ? (
               // ログインしている場合
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar src={iconPath} />
                 </IconButton>
               </Tooltip>
             ) : (
