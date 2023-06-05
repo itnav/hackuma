@@ -56,10 +56,8 @@ const Settings: NextPage = () => {
         .from('files')
         .list(publicUser.user_id)
 
-      if (files && files.length > 0) {
-        const ids = files.map((file) => {
-          return `${publicUser.user_id}/${file.name}`
-        })
+      const ids = files?.map((file) => `${publicUser.user_id}/${file.name}`)
+      if (ids?.length) {
         await deleteFileMutation.mutateAsync(ids)
       }
 
@@ -105,8 +103,7 @@ const Settings: NextPage = () => {
    * サムネイル画像のファイル選択ボタンが押されたときの処理
    */
   const handleIconButtonClick = () => {
-    if (!fileInputRef.current) return
-    fileInputRef.current.click()
+    fileInputRef.current?.click()
   }
 
   /**
@@ -115,8 +112,7 @@ const Settings: NextPage = () => {
    * @returns
    */
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target || !event.target.files) return
-    setFile(event.target.files[0])
+    setFile(event.target?.files?.[0] ?? null)
     previewFile(event, setIcon)
   }
 
@@ -149,7 +145,6 @@ const Settings: NextPage = () => {
         { file, uploadPath: publicUser.user_id },
         {
           onSuccess: (data: { path: string | null }) => {
-            if (!data.path) return
             iconPath = data.path
           },
         }

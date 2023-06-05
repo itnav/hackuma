@@ -71,8 +71,7 @@ export const EditorBase: FC<EditorBaseProps> = ({
    * サムネイル画像のファイル選択ボタンが押されたときの処理
    */
   const handleThumbnailButtonClick = () => {
-    if (!fileInputRef.current) return
-    fileInputRef.current.click()
+    fileInputRef.current?.click()
   }
 
   /**
@@ -92,8 +91,7 @@ export const EditorBase: FC<EditorBaseProps> = ({
    * @returns
    */
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target || !event.target.files) return
-    setFile(event.target.files[0])
+    setFile(event.target?.files?.[0] ?? null)
     previewFile(event, setThumbnail)
     changeFile?.()
   }
