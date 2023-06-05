@@ -31,13 +31,13 @@ export const useCreateFileMutation = () => {
 export const useDeleteFileMutation = () => {
   /**
    * 指定されたファイルパスのファイルを削除します。
-   * @param {string[]} thumbnailPath - 削除するファイルパス
+   * @param {string[]} thumbnailPaths - 削除するファイルパス
    */
   return useMutation(
-    async (thumbnailPath: string[]) => {
+    async (thumbnailPaths: string[]) => {
       const { data, error } = await supabase.storage
         .from('files')
-        .remove(thumbnailPath)
+        .remove(thumbnailPaths)
 
       if (error) throw new Error(error.message)
       return data

@@ -16,17 +16,12 @@ import {
 } from '@/hooks/useMutateFiles'
 import AppSnackbar from '@/components/elements/Snackbar'
 import CancelIcon from '@mui/icons-material/Cancel'
-import { supabase } from '@/utils/supabase'
-import { useDeleteUserMutation } from '@/hooks/useMutateAuth'
-import { useRouter } from 'next/router'
+import AccountDeleteButton from '@/components/elements/button/accountDeleteButton'
 
 const Settings: NextPage = () => {
-  const router = useRouter()
-
   const createFileMutation = useCreateFileMutation()
   const updateUserMutation = useUpdateUserMutation()
   const deleteFileMutation = useDeleteFileMutation()
-  const deleteUsersMutation = useDeleteUserMutation()
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
@@ -38,65 +33,15 @@ const Settings: NextPage = () => {
 
   const [icon, setIcon] = useState<string>('')
 
-  const [isOpenToggle, setIsOpenToggle] = useState(false)
+  const [isOpenDialog, setIsOpenDialog] = useState(false)
 
   const [file, setFile] = useState<File | null>(null)
-
-  const deleteButtonEl = () => {
-    const handleDelete = async () => {
-      if (!publicUser) return
-      updateSnackbar({
-        isOpen: true,
-        message: '削除中です...',
-        severity: 'success',
-      })
-
-      // ストレージのフォルダを削除
-      const { data: files } = await supabase.storage
-        .from('files')
-        .list(publicUser.user_id)
-
-      const ids = files?.map((file) => `${publicUser.user_id}/${file.name}`)
-      if (ids?.length) {
-        await deleteFileMutation.mutateAsync(ids)
-      }
-
-      // アカウント削除
-      deleteUsersMutation
-        // アカウント削除
-        .mutate(publicUser.user_id, {
-          onSuccess: () => {
-            updateSnackbar({
-              isOpen: true,
-              message: '削除しました',
-              severity: 'success',
-            })
-            router.push('/')
-          },
-          onError: () => {
-            updateSnackbar({
-              isOpen: true,
-              message: '削除に失敗しました',
-              severity: 'error',
-            })
-          },
-        })
-
-      setIsOpenToggle(false)
-    }
-
-    return (
-      <Button onClick={handleDelete} color="error">
-        削除する
-      </Button>
-    )
-  }
 
   /**
    * アカウント削除ボタンが押されたときの処理
    */
   const handleClickAccountDeleteButton = () => {
-    setIsOpenToggle(true)
+    setIsOpenDialog(true)
   }
 
   /**
@@ -181,7 +126,7 @@ const Settings: NextPage = () => {
         },
       }
     )
-    setIsOpenToggle(false)
+    setIsOpenDialog(false)
   }
 
   useEffect(() => {
@@ -279,10 +224,12 @@ const Settings: NextPage = () => {
             </Button>
           </div>
           <AppDialog
-            open={isOpenToggle}
+            open={isOpenDialog}
             title="アカウント削除"
-            onClose={() => setIsOpenToggle(false)}
-            actionButton={deleteButtonEl()}
+            onClose={() => setIsOpenDialog(false)}
+            actionButton={
+              <AccountDeleteButton onDeleted={() => setIsOpenDialog(false)} />
+            }
           >
             <div>アカウントを削除しますか？</div>
           </AppDialog>
