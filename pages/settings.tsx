@@ -18,8 +18,11 @@ import AppSnackbar from '@/components/elements/Snackbar'
 import CancelIcon from '@mui/icons-material/Cancel'
 import { supabase } from '@/utils/supabase'
 import { useDeleteUserMutation } from '@/hooks/useMutateAuth'
+import { useRouter } from 'next/router'
 
 const Settings: NextPage = () => {
+  const router = useRouter()
+
   const createFileMutation = useCreateFileMutation()
   const updateUserMutation = useUpdateUserMutation()
   const deleteFileMutation = useDeleteFileMutation()
@@ -70,6 +73,7 @@ const Settings: NextPage = () => {
               message: '削除しました',
               severity: 'success',
             })
+            router.push('/')
           },
           onError: () => {
             updateSnackbar({
@@ -199,28 +203,25 @@ const Settings: NextPage = () => {
           <h1>設定</h1>
           <div className={style['form-item']}>
             <label>アイコン</label>
-            <Avatar sx={{ width: 120, height: 120 }}>
-              {icon ? (
-                <>
-                  <IconButton
-                    className={style['close-icon-btn']}
-                    onClick={handleIconDeleteButtonClick}
-                  >
-                    <CancelIcon />
-                  </IconButton>
-                  <Image
-                    src={icon}
-                    alt=""
-                    fill
-                    style={{
-                      objectFit: 'cover',
-                    }}
-                  />
-                </>
-              ) : (
-                <PetsIcon fontSize="large" />
+            <div className={style['icon-wrap']}>
+              {icon && (
+                <IconButton
+                  className={style['close-icon-btn']}
+                  onClick={handleIconDeleteButtonClick}
+                >
+                  <CancelIcon />
+                </IconButton>
               )}
-            </Avatar>
+              <Avatar className={style['avatar']}>
+                {icon ? (
+                  <>
+                    <Image src={icon} alt="" fill />
+                  </>
+                ) : (
+                  <PetsIcon fontSize="large" />
+                )}
+              </Avatar>
+            </div>
             <Button
               variant="outlined"
               style={{
