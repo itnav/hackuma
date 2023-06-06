@@ -1,4 +1,4 @@
- {
+{
   "name": "hackuma",
   "version": "0.1.0",
   "private": true,
@@ -37,6 +37,7 @@
     "@types/react-dom": "18.2.4",
     "date-fns": "^2.30.0",
     "draft-js": "^0.11.7",
+    "draft-js-export-html": "^1.4.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
     "next": "^13.4.1",
